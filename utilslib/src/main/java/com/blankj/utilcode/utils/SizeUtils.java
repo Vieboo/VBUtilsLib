@@ -166,7 +166,7 @@ public class SizeUtils {
     }
 
     /**
-     * 获取字符串
+     * 测量字符串在屏幕所占宽度
      * @param text  目标字符串
      * @param textSize  字体大小 单位：sp
      * @return
