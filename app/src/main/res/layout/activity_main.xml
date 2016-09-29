@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.vb.utils.MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_info"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Hellow World" />
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/btn_screen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SCREEN"/>
+
+                <Button
+                    android:id="@+id/btn_dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DIP2PX"/>
+
+                <Button
+                    android:id="@+id/btn_px"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PX2DIP"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/btn_widthheight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_span="2"
+                    android:text="WIDTHHEIGHT"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/btn_setx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SETX"/>
+
+                <Button
+                    android:id="@+id/btn_sety"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SETY"/>
+
+                <Button
+                    android:id="@+id/btn_setxy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="SETXY"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/btn_net"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="NET"/>
+
+                <Button
+                    android:id="@+id/btn_wifiip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="WIFIIP"/>
+
+
+                <Button
+                    android:id="@+id/btn_nettype"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="NETTYPE"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                >
+
+                 <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:layout_span="2"
+                    />
+
+
+                <Button
+                    android:id="@+id/btn_hidenkeyboard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HIDENKEYBOARD"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <Button
+                    android:id="@+id/btn_versiontag"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="VERSIONTAG"/>
+
+                <Button
+                    android:id="@+id/btn_versioncode"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="VERSIONCODE"/>
+
+                <Button
+                    android:id="@+id/btn_manifest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MANIFEST"/>
+
+
+            </TableRow>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:id="@+id/slider"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:background="#F6A"
+                    />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/cat"/>
+
+                <ImageView
+                    android:id="@+id/iv_smaller"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <ImageView
+                    android:id="@+id/iv_bigger"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </LinearLayout>
+
+        </TableLayout>
+
+    </ScrollView>
+
+</LinearLayout>
