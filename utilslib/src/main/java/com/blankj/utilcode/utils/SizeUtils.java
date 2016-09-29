@@ -1,6 +1,8 @@
 package com.blankj.utilcode.utils;
 
 import android.content.Context;
+import android.graphics.Paint;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -161,5 +163,25 @@ public class SizeUtils {
         }
         view.measure(width, height);
         */
+    }
+
+    /**
+     * 获取字符串
+     * @param text  目标字符串
+     * @param textSize  字体大小 单位：sp
+     * @return
+     */
+    private int getTextWidthPixel(String text, int textSize) {
+        float[] widths = new float[text.length()];
+        Paint paint = new Paint();
+        paint.setTextSize(textSize);
+        Rect rect = new Rect();
+        paint.getTextBounds(text, 0, text.length(), rect);
+        paint.getTextWidths(text, widths);
+        int lineWidth = 0;
+        for(int i=0; i<widths.length; i++){
+            lineWidth += widths[i];
+        }
+        return lineWidth;
     }
 }
