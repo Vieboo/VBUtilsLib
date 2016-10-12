@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
@@ -165,5 +166,51 @@ public class KeyboardUtils {
     public static boolean isShowSoftInput(Context context) {
         return ((InputMethodManager) context
                 .getSystemService(Context.INPUT_METHOD_SERVICE)).isActive();
+    }
+
+
+    /**
+     * 强制显示键盘（压缩屏幕）
+     * @return
+     */
+    public static void showKeyboardAdjustResize(Activity activity) {
+        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+    }
+
+    /**
+     * 强制显示键盘（覆盖底部）
+     */
+    public static void showKeyboardAdjustPan(Activity activity) {
+        activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE| WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    }
+
+    /**
+     * 强制显示键盘（压缩屏幕）
+     * @param editText
+     * @return
+     */
+    public static void showKeyboardAdjustResize(Activity activity, EditText editText) {
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        showKeyboardAdjustResize(activity);
+    }
+
+    /**
+     * 强制显示键盘（覆盖底部）
+     * @param editText
+     */
+    public static void showKeyboardAdjustPan(Activity activity, EditText editText) {
+        editText.setFocusable(true);
+        editText.setFocusableInTouchMode(true);
+        showKeyboardAdjustPan(activity);
+    }
+
+    /**
+     * 强制隐藏键盘
+     */
+    public static void dismissKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null && activity.getCurrentFocus() != null)
+            imm.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
     }
 }
