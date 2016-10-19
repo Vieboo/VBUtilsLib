@@ -1,5 +1,10 @@
 package com.blankj.utilcode.utils;
 
+import android.app.Activity;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -1087,5 +1092,25 @@ public class FileUtils {
         int lastSep = filePath.lastIndexOf(File.separator);
         if (lastPoi == -1 || lastSep >= lastPoi) return "";
         return filePath.substring(lastPoi + 1);
+    }
+
+    /**
+     * Uri转File对象
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static File uri2File(Activity context, Uri uri) {
+        File file = null;
+        String[] proj = { MediaStore.Images.Media.DATA };
+        Cursor actualimagecursor = context.managedQuery(uri, proj, null,
+                null, null);
+        int actual_image_column_index = actualimagecursor
+                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        actualimagecursor.moveToFirst();
+        String img_path = actualimagecursor
+                .getString(actual_image_column_index);
+        file = new File(img_path);
+        return file;
     }
 }

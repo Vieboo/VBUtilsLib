@@ -21,7 +21,9 @@ import android.graphics.RectF;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Build;
+import android.provider.MediaStore;
 import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
@@ -1509,5 +1511,24 @@ public class ImageUtils {
         Bitmap result = Bitmap.createBitmap(srcBit, 0, 0, srcBit.getWidth(),
                 srcBit.getHeight(), matrix, true);
         return result;
+    }
+
+
+    /**
+     * 根据Uri获取Bitmap
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static Bitmap getBitmapFromUri(Context context, Uri uri) {
+        try {
+            // 读取uri所在的图片
+            Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+            return bitmap;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }
