@@ -516,6 +516,32 @@ public class TimeUtils {
     }
 
     /**
+     * 判断两个日期是否是同一天
+     * @param data1
+     * @param data2
+     * @return
+     */
+    public static boolean isTheSameDay(long data1, long data2) {
+        String str1 = parseDate(data1, "yyyy-MM-dd");
+        String str2 = parseDate(data2, "yyyy-MM-dd");
+        return str1.equals(str2);
+    }
+
+
+    /**
+     * 判断是否是今天之前
+     * @param time
+     * @return
+     */
+    public static boolean isBeforeToday(long time) {
+        long current = System.currentTimeMillis();
+        String currentStr = parseDate(current, "yyyy-MM-dd");
+//        currentStr = currentStr + " 00:00:00";
+        long today = parseDate(currentStr, "yyyy-MM-dd");
+        return time < today;
+    }
+
+    /**
      * 判断时间是xx前
      * @param time
      * @return
@@ -574,5 +600,68 @@ public class TimeUtils {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public static String getWeek(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        return getWeekName(week);
+    }
+
+    private static String getWeekName (int i) {
+        String week = "";
+        switch (i) {
+            case 1:
+                week = "周日";
+                break;
+            case 2:
+                week = "周一";
+                break;
+            case 3:
+                week = "周二";
+                break;
+            case 4:
+                week = "周三";
+                break;
+            case 5:
+                week = "周四";
+                break;
+            case 6:
+                week = "周五";
+                break;
+            case 7:
+                week = "周六";
+                break;
+        }
+        return week;
+    }
+
+    public static String getWeekName2 (int i) {
+        String week = "";
+        switch (i) {
+            case 1:
+                week = "星期日";
+                break;
+            case 2:
+                week = "星期一";
+                break;
+            case 3:
+                week = "星期二";
+                break;
+            case 4:
+                week = "星期三";
+                break;
+            case 5:
+                week = "星期四";
+                break;
+            case 6:
+                week = "星期五";
+                break;
+            case 7:
+                week = "星期六";
+                break;
+        }
+        return week;
     }
 }
