@@ -1531,4 +1531,18 @@ public class ImageUtils {
             return null;
         }
     }
+
+
+    /**
+     * 将模板View的图片转化为Bitmap
+     * @param v
+     * @return
+     */
+    public static Bitmap getBitmapByView(View v) {
+        Bitmap bitmap = Bitmap.createBitmap(v.getWidth(), v.getHeight(),
+                Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        v.draw(canvas);
+        return bitmap;
+    }
 }

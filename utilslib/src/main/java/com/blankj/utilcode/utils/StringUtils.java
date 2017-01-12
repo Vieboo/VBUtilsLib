@@ -1,6 +1,16 @@
 package com.blankj.utilcode.utils;
 
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -322,5 +332,97 @@ public class StringUtils {
             sb.append(py);
         }
         return sb.toString();
+    }
+
+
+    /**
+     * 手机号码中间替换成*
+     * @return
+     */
+    public static String convertStar4Phone(String str) {
+        if(TextUtils.isEmpty(str)) return "";
+        if(str.length() < 7) return str;
+        String result = str.replaceAll(str.substring(3, 7), "****");
+        return result;
+    }
+
+    public static boolean isFloat(String str) {
+        try {
+            Float.parseFloat(str);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isInteger(String str) {
+        try {
+            Integer.parseInt(str);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean isLong(String str) {
+        try {
+            Long.parseLong(str);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean isDouble(String str) {
+        try {
+            Double.parseDouble(str);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+
+    public static  CharSequence getColorsText(List<String> values, List<String> colors) {
+        if(null == values || values.size() == 0) {
+            return "";
+        }
+
+        String value = "";
+        for(String str : values) {
+            value += (str + " ");
+        }
+        SpannableStringBuilder builder = new SpannableStringBuilder(value);
+        //默认字体颜色
+        ForegroundColorSpan defaultFCS = new ForegroundColorSpan(Color.GRAY);
+        List<ForegroundColorSpan> fcsList = new ArrayList<>();
+        if(null != colors && colors.size() > 0) {
+            for (String str : colors) {
+                fcsList.add(new ForegroundColorSpan(Color.parseColor(str)));
+            }
+        }
+        int cursor = 0;
+        for(int i=0; i<values.size(); i++) {
+            if(fcsList.size() > i) {
+                builder.setSpan(fcsList.get(i), cursor, cursor+values.get(i).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }else {
+                builder.setSpan(defaultFCS, cursor, cursor+values.get(i).length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            }
+            cursor += (values.get(i).length() + 1);
+        }
+        return builder;
+    }
+
+    public static int getTextWidthPixel(String text, int textSize) {
+        float[] widths = new float[text.length()];
+        Paint paint = new Paint();
+        paint.setTextSize(textSize);
+        Rect rect = new Rect();
+        paint.getTextBounds(text, 0, text.length(), rect);
+        paint.getTextWidths(text, widths);
+        int lineWidth = 0;
+        for(int i=0; i<widths.length; i++){
+            lineWidth += widths[i];
+        }
+        return lineWidth;
     }
 }

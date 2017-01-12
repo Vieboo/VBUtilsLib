@@ -541,6 +541,20 @@ public class TimeUtils {
         return time < today;
     }
 
+
+    /**
+     * 判断是否是今天
+     * @param time
+     * @return
+     */
+    public static boolean isToday(long time) {
+        long current = System.currentTimeMillis();
+        String currentStr = parseDate(current, "yyyy-MM-dd");
+        String timeStr = parseDate(time, "yyyy-MM-dd");
+        return currentStr.equals(timeStr);
+    }
+
+
     /**
      * 判断时间是xx前
      * @param time
@@ -568,6 +582,26 @@ public class TimeUtils {
             return num + "天前";
         }else {
             return parseDate(time * 1000, "MM-dd");
+        }
+    }
+
+    public static String getIntervalTimeOneDay(long time) {
+        long nowTime=System.currentTimeMillis()/1000;
+        long num=0;
+        time=time/1000;
+        if(nowTime-time<60){
+            return "现在";
+        }else if(nowTime-time<600){
+            num=(nowTime-time)/60;
+            return num+"分钟前";
+        }else if(nowTime-time<3600) {
+            num = (nowTime - time) / 600;
+            return num + "分钟前";
+        }else if(nowTime-time<3600*24){
+            num = (nowTime - time) / 3600;
+            return num + "小时前";
+        }else {
+            return parseDate(time * 1000, "MM-dd HH:mm");
         }
     }
 
@@ -609,7 +643,14 @@ public class TimeUtils {
         return getWeekName(week);
     }
 
-    private static String getWeekName (int i) {
+    public static String getWeek2(long time) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(time);
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        return getWeekName2(week);
+    }
+
+    public static String getWeekName (int i) {
         String week = "";
         switch (i) {
             case 1:
@@ -663,5 +704,48 @@ public class TimeUtils {
                 break;
         }
         return week;
+    }
+
+    public static String getMonthName (int i) {
+        String month = "";
+        switch (i) {
+            case 0:
+                month = "一月";
+                break;
+            case 1:
+                month = "二月";
+                break;
+            case 2:
+                month = "三月";
+                break;
+            case 3:
+                month = "四月";
+                break;
+            case 4:
+                month = "五月";
+                break;
+            case 5:
+                month = "六月";
+                break;
+            case 6:
+                month = "七月";
+                break;
+            case 7:
+                month = "八月";
+                break;
+            case 8:
+                month = "九月";
+                break;
+            case 9:
+                month = "十月";
+                break;
+            case 10:
+                month = "十一月";
+                break;
+            case 11:
+                month = "十二月";
+                break;
+        }
+        return month;
     }
 }
