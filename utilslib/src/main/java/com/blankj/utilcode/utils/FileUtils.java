@@ -3,6 +3,7 @@ package com.blankj.utilcode.utils;
 import android.app.Activity;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 
 import java.io.BufferedInputStream;
@@ -1094,23 +1095,26 @@ public class FileUtils {
         return filePath.substring(lastPoi + 1);
     }
 
+
     /**
-     * Uri转File对象
-     * @param context
-     * @param uri
+     * 创建应用根目录
+     * @param appName       跟目录名（app名称）
      * @return
      */
-    public static File uri2File(Activity context, Uri uri) {
-        File file = null;
-        String[] proj = { MediaStore.Images.Media.DATA };
-        Cursor actualimagecursor = context.managedQuery(uri, proj, null,
-                null, null);
-        int actual_image_column_index = actualimagecursor
-                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-        actualimagecursor.moveToFirst();
-        String img_path = actualimagecursor
-                .getString(actual_image_column_index);
-        file = new File(img_path);
-        return file;
+    public static String createAppDir(String appName) {
+        if (Environment.MEDIA_MOUNTED.equals(Environment
+                .getExternalStorageState())) {
+            // 创建一个文件夹对象，赋值为外部存储器的目录
+            File sdcardDir = Environment.getExternalStorageDirectory();
+            // 得到一个路径，内容是sdcard的文件夹路径和名字
+            String path = sdcardDir.getPath() + "/" + appName;
+            File file_path = new File(path);
+            if (!file_path.exists()) {
+                // 若不存在，创建目录，可以在应用启动的时候创建
+                file_path.mkdirs();
+            }
+            return file_path.getPath();
+        }
+        return  "";
     }
 }

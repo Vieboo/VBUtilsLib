@@ -1,6 +1,7 @@
 package com.blankj.utilcode.utils;
 
 import android.annotation.TargetApi;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -1515,11 +1516,12 @@ public class ImageUtils {
 
 
     /**
-     * 根据Uri获取Bitmap
+     * 根据Uri获取Bitmap    (不建议用，容易造成OOM)
      * @param context
      * @param uri
      * @return
      */
+    @Deprecated
     public static Bitmap getBitmapFromUri(Context context, Uri uri) {
         try {
             // 读取uri所在的图片
@@ -1530,6 +1532,73 @@ public class ImageUtils {
             e.printStackTrace();
             return null;
         }
+    }
+
+
+    /**
+     * Uri转Bitmap对象
+     * @param context
+     * @param uri
+     * @return
+     */
+    public static Bitmap uri2Bitmap(Context context, Uri uri) {
+        ContentResolver contentResolver = context.getContentResolver();
+        Bitmap bitmap = null;
+        try {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            Bitmap bm = BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, options);
+            options.inJustDecodeBounds = false;
+            options.inSampleSize = 4;
+            options.inPreferredConfig = Bitmap.Config.RGB_565;
+            bitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, options);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
+
+    /**
+     * bitmap转File对象
+     * @param bitmap
+     * @param appName       跟目录名（app名称）
+     * @param fileName
+     * @return
+     */
+    public static File bitmap2File(Bitmap bitmap, String appName, String fileName) {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, bos);
+        byte[] tempData = bos.toByteArray();
+        File bFile = new File(FileUtils.createAppDir(appName) + "/" + fileName);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(bFile);
+            fos.write(tempData);
+            fos.flush();
+            if (bFile.exists() && bFile.length() > 0)
+                return bFile;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Uri转File对象
+     * @param context
+     * @param uri
+     * @param appName       跟目录名（app名称）
+     * @param fileName
+     * @return
+     */
+    public static File uri2File(Context context, Uri uri, String appName, String fileName) {
+        return bitmap2File(uri2Bitmap(context, uri), appName, fileName);
     }
 
 
